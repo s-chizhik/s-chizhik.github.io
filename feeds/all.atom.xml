@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>s.chizhik #site</title><link href="/" rel="alternate"></link><link href="/feeds/all.atom.xml" rel="self"></link><id>/</id><updated>2017-01-27T10:20:00+02:00</updated><entry><title>tricks.php</title><link href="/tricks-php.html" rel="alternate"></link><published>2017-01-27T10:20:00+02:00</published><updated>2017-01-27T10:20:00+02:00</updated><author><name>Sergey Chizhik</name></author><id>tag:None,2017-01-27:/tricks-php.html</id><summary type="html">&lt;p&gt;Небольшой сборник различной странных вещей в php, с которыми приходилось столкнуться&lt;/p&gt;</summary><content type="html">&lt;p&gt;Небольшой сборник различной странных вещей в php, с которыми приходилось столкнуться&lt;/p&gt;
+&lt;hr&gt;
+&lt;h4&gt;Вложенные тернарные операторы&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
+
+&lt;span class="nv"&gt;$test&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;array&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;span class="nv"&gt;$test&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;a&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;123&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+
+&lt;span class="nb"&gt;var_dump&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+    &lt;span class="nb"&gt;isset&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$test&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;a&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+        &lt;span class="o"&gt;?&lt;/span&gt; &lt;span class="nv"&gt;$test&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;a&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+        &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nb"&gt;isset&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$test&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;b&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+            &lt;span class="o"&gt;?&lt;/span&gt; &lt;span class="nv"&gt;$test&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;b&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+            &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;default&amp;quot;&lt;/span&gt;
+&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h5&gt;Ожидание&lt;/h5&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
+&lt;span class="o"&gt;...&lt;/span&gt;
+&lt;span class="nb"&gt;isset&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$test&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;a&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+    &lt;span class="o"&gt;?&lt;/span&gt; &lt;span class="nv"&gt;$test&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;a&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+    &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;isset&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$test&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;b&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+        &lt;span class="o"&gt;?&lt;/span&gt; &lt;span class="nv"&gt;$test&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;b&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+        &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;default&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h5&gt;Реальность&lt;/h5&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
+&lt;span class="o"&gt;...&lt;/span&gt;
+&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;isset&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$test&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;a&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+    &lt;span class="o"&gt;?&lt;/span&gt; &lt;span class="nv"&gt;$test&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;a&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+    &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nb"&gt;isset&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$test&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;b&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]))&lt;/span&gt;
+        &lt;span class="o"&gt;?&lt;/span&gt; &lt;span class="nv"&gt;$test&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;b&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+        &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;default&amp;quot;&lt;/span&gt;
+&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;hr&gt;
+&lt;h4&gt;Вызов конструктора после создания объекта&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
+&lt;span class="o"&gt;...&lt;/span&gt;
+&lt;span class="nv"&gt;$exception&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nx"&gt;\Exception&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;span class="nb"&gt;var_dump&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$exception&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="nv"&gt;$exception&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="na"&gt;__construct&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Oups&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="nb"&gt;var_dump&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$exception&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;hr&gt;
+&lt;h4&gt;Упоротый &lt;code&gt;in_array&lt;/code&gt; (&lt;a href="https://secure.php.net/manual/ru/function.in-array.php"&gt;документация&lt;/a&gt;)&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
+&lt;span class="o"&gt;...&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="nb"&gt;in_array&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;qwe&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;asd&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+&lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="k"&gt;true&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;em&gt;Нужно учитывать, что &lt;code&gt;in_array&lt;/code&gt; может принимать второй аргумент&lt;/em&gt; &lt;/p&gt;
+&lt;hr&gt;
+&lt;h4&gt;&lt;code&gt;sprintf&lt;/code&gt; не работает с &lt;code&gt;mb_&lt;/code&gt; строками&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Попытка использовать комбинацию строк и спецификаторов ширины с кодировками, которые &amp;gt; требуют более одного байта на символ, может привести к неожиданным результатам.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h4&gt;Приаттачченый &lt;code&gt;callback&lt;/code&gt; имеет доступ к &lt;code&gt;private&lt;/code&gt; методам&lt;/h4&gt;
+&lt;hr&gt;
+&lt;h4&gt;Symlinks &amp;amp;&amp;amp; &lt;code&gt;is_dir&lt;/code&gt;&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
+
+&lt;span class="nv"&gt;$dir&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;/tmp/symlink&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;is_dir&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$dir&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nb"&gt;rmdir&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$dir&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;code&gt;is_dir('/tmp/symlink')&lt;/code&gt; читает что симлинк указывает на директорию, и &lt;code&gt;is_dir&lt;/code&gt; отдаёт true, а &lt;code&gt;rmdir&lt;/code&gt; не может удалить, т.к. фактически это симлинк.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Актуально для 5 версии PHP&lt;/em&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h4&gt;Вызов private метода внутри класса но не внутри себя, над другим объектом&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;?&lt;/span&gt;&lt;span class="nx"&gt;php&lt;/span&gt;
+
+&lt;span class="kr"&gt;class&lt;/span&gt; &lt;span class="nx"&gt;Test&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+
+    &lt;span class="kr"&gt;private&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;privateFunction() {&lt;/span&gt;
+        &lt;span class="nx"&gt;echo&lt;/span&gt; &lt;span class="nx"&gt;__METHOD__&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt; &lt;span class="nx"&gt;PHP_EOL&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+
+    &lt;span class="kr"&gt;protected&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;protectedFunction() {&lt;/span&gt;
+        &lt;span class="nx"&gt;echo&lt;/span&gt; &lt;span class="nx"&gt;__METHOD__&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt; &lt;span class="nx"&gt;PHP_EOL&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+
+    &lt;span class="kr"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;publicFunction() {&lt;/span&gt;
+        &lt;span class="nx"&gt;echo&lt;/span&gt; &lt;span class="nx"&gt;__METHOD__&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt; &lt;span class="nx"&gt;PHP_EOL&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+
+    &lt;span class="kr"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;doSomeStuf() {&lt;/span&gt;
+        &lt;span class="nx"&gt;$newThis&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;clone&lt;/span&gt; &lt;span class="nx"&gt;$this&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="nx"&gt;$newThis&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="nx"&gt;publicFunction&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+        &lt;span class="nx"&gt;$newThis&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="nx"&gt;privateFunction&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+        &lt;span class="nx"&gt;$newThis&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="nx"&gt;protectedFunction&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="nx"&gt;$a&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nx"&gt;Test&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;span class="nx"&gt;$a&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="nx"&gt;doSomeStuf&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;hr&gt;
+&lt;h4&gt;Смешанные аргументы в сигнатуре методов/функций:&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
+&lt;span class="o"&gt;...&lt;/span&gt;
+&lt;span class="k"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nv"&gt;$b&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nv"&gt;$c&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nb"&gt;var_dump&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nv"&gt;$b&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nv"&gt;$c&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Аргументы со значениями по-умолчанию должны идти исключительно в конце, при нарушении – должна быть ошибка компиляции/процессинга и т.д&lt;/p&gt;
+&lt;hr&gt;
+&lt;h4&gt;(int) 18446744073709551615&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;18446744073709551615&lt;/span&gt;
+&lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="mf"&gt;1.844674407371E+19&lt;/span&gt;
+
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;int&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="mi"&gt;18446744073709551615&lt;/span&gt;
+&lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</content><category term="php"></category></entry><entry><title>Лайтовый летний походик</title><link href="/laitovyi-letnii-pokhodik.html" rel="alternate"></link><published>2016-08-06T22:28:00+03:00</published><updated>2016-08-06T22:28:00+03:00</updated><author><name>Sergey Chizhik</name></author><id>tag:None,2016-08-06:/laitovyi-letnii-pokhodik.html</id><summary type="html">Лайтовый летний походик</summary><content type="html">
+
+&lt;iframe src="https://www.google.com/maps/d/u/0/embed?mid=1C2EjFljQtAzQKIcKYBeQo_3o1Jw" width="100%" height="480"&gt;&lt;/iframe&gt;
+
+&lt;br /&gt;
+
+Треки: &lt;br /&gt;
+&lt;a href="/gpx_tracks/2016/07-08/2016-07-29_11-50.gpx"&gt;2016-07-29_11-50.gpx&lt;/a&gt; &lt;br&gt;
+&lt;a href="/gpx_tracks/2016/07-08/2016-07-30_12-39.gpx"&gt;2016-07-30_12-39.gpx&lt;/a&gt; &lt;br&gt;
+&lt;a href="/gpx_tracks/2016/07-08/2016-07-31_12-58.gpx"&gt;2016-07-31_12-58.gpx&lt;/a&gt; &lt;br&gt;
+&lt;a href="/gpx_tracks/2016/07-08/2016-08-01_10-57.gpx"&gt;2016-08-01_10-57.gpx&lt;/a&gt; &lt;br&gt;
+&lt;a href="/gpx_tracks/2016/07-08/2016-08-01_12-17.gpx"&gt;2016-08-01_12-17.gpx&lt;/a&gt; &lt;br&gt;
+&lt;a href="/gpx_tracks/2016/07-08/2016-08-03_12-52.gpx"&gt;2016-08-03_12-52.gpx&lt;/a&gt; &lt;br&gt;
+&lt;a href="/gpx_tracks/2016/07-08/2016-08-05_18-41.gpx"&gt;2016-08-05_18-41.gpx&lt;/a&gt; &lt;br&gt;
+
+</content><category term="поход"></category><category term="июль"></category><category term="август"></category><category term="2016"></category></entry><entry><title>Майский поход по Черногоре, Карпаты</title><link href="/maiskii-pokhod-po-chernogore-karpaty.html" rel="alternate"></link><published>2016-05-13T22:28:00+03:00</published><updated>2016-05-13T22:28:00+03:00</updated><author><name>Sergey Chizhik</name></author><id>tag:None,2016-05-13:/maiskii-pokhod-po-chernogore-karpaty.html</id><summary type="html">Упоротый майский походик по карпатам</summary><content type="html">
+
+&lt;iframe src="https://www.google.com/maps/d/u/0/embed?mid=1xkCcRMFi3T9BPB98EUNLrBN_LeA" width="100%" height="480"&gt;&lt;/iframe&gt;
+
+&lt;br /&gt;
+
+Треки: &lt;br /&gt;
+&lt;a href="/gpx_tracks/2016/05/2016-05-08_13-31.gpx"&gt;2016-05-08_13-31.gpx&lt;/a&gt; &lt;br&gt;
+&lt;a href="/gpx_tracks/2016/05/2016-05-09_08-51.gpx"&gt;2016-05-09_08-51.gpx&lt;/a&gt; &lt;br&gt;
+&lt;a href="/gpx_tracks/2016/05/2016-05-10_11-00.gpx"&gt;2016-05-10_11-00.gpx&lt;/a&gt; &lt;br&gt;
+&lt;a href="/gpx_tracks/2016/05/2016-05-11_12-43.gpx"&gt;2016-05-11_12-43.gpx&lt;/a&gt; &lt;br&gt;
+&lt;a href="/gpx_tracks/2016/05/2016-05-12_10-58.gpx"&gt;2016-05-12_10-58.gpx&lt;/a&gt; &lt;br&gt;
+
+</content><category term="поход"></category><category term="май"></category><category term="2016"></category></entry></feed>
