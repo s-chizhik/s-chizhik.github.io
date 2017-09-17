@@ -41,7 +41,7 @@ DEFAULT_PAGINATION = 10
 # RELATIVE_URLS = True
 THEME = 'themes/clean-blog'
 
-STATIC_PATHS = ['gpx_tracks', 'img', ]
+STATIC_PATHS = ['gps_tracks', 'img', ]
 
 DISPLAY_PAGES_ON_MENU = False
 DISPLAY_CATEGORIES_ON_MENU = True
