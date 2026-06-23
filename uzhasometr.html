@@ -5,79 +5,37 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ужасометр-1</title>
 <style>
-  :root{
-    --cream:#d6cba8;
-    --ink:#2e2a24;
-    --muted:#6f6a58;
-  }
+  :root{ --cream:#d6cba8; --ink:#2e2a24; --muted:#6f6a58; }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0}
   body{
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    gap:18px;
-    padding:24px 16px 40px;
+    min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:18px;padding:24px 16px 40px;
     background:radial-gradient(circle at 50% 30%, #2f2f2a 0%, #1c1c19 80%);
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     color:#e9e4d5;
   }
   .wrap{width:100%;max-width:720px}
-  h1{
-    text-align:center;
-    font-size:20px;
-    font-weight:500;
-    letter-spacing:6px;
-    margin:0 0 4px;
-    color:#cfc7b2;
-  }
-  .sub{
-    text-align:center;
-    font-size:13px;
-    color:#8d8975;
-    margin:0 0 14px;
-  }
-  .gauge{
-    width:100%;
-    display:block;
-    filter:drop-shadow(0 14px 26px rgba(0,0,0,.45));
-  }
-  .console{
-    margin-top:14px;
-    background:var(--cream);
-    border:2px solid #9c9277;
-    border-radius:10px;
-    padding:14px 18px 16px;
-    box-shadow:inset 0 0 0 1px rgba(255,255,255,.15);
-  }
+  h1{text-align:center;font-size:20px;font-weight:500;letter-spacing:6px;margin:0 0 4px;color:#cfc7b2}
+  .sub{text-align:center;font-size:13px;color:#8d8975;margin:0 0 14px}
+  .gauge{width:100%;display:block;filter:drop-shadow(0 14px 26px rgba(0,0,0,.45))}
+  .console{margin-top:14px;background:var(--cream);border:2px solid #9c9277;border-radius:10px;padding:14px 18px 16px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.15)}
   .row{display:flex;align-items:center;gap:12px}
   .end{font-size:12px;color:var(--muted);min-width:34px}
   .end.r{text-align:right}
-  input[type=range]{
-    -webkit-appearance:none;appearance:none;
-    flex:1;height:6px;border-radius:4px;
-    background:linear-gradient(90deg,#4CA64C,#E0A81C,#E8783C,#D83A30);
-    outline:none;cursor:pointer;
-  }
-  input[type=range]::-webkit-slider-thumb{
-    -webkit-appearance:none;appearance:none;
-    width:20px;height:20px;border-radius:50%;
-    background:#2e2a24;border:2px solid #cfc7b2;cursor:pointer;
-  }
-  input[type=range]::-moz-range-thumb{
-    width:18px;height:18px;border-radius:50%;
-    background:#2e2a24;border:2px solid #cfc7b2;cursor:pointer;
-  }
-  .verdict{
-    text-align:center;margin-top:12px;
-    font-size:15px;color:var(--muted);
-  }
+  input[type=range]{-webkit-appearance:none;appearance:none;flex:1;height:6px;border-radius:4px;background:linear-gradient(90deg,#4CA64C,#E0A81C,#E8783C,#D83A30);outline:none;cursor:pointer}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:20px;height:20px;border-radius:50%;background:#2e2a24;border:2px solid #cfc7b2;cursor:pointer}
+  input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:#2e2a24;border:2px solid #cfc7b2;cursor:pointer}
+  .verdict{text-align:center;margin-top:12px;font-size:15px;color:var(--muted)}
   .verdict b{font-weight:600}
-  .foot{
-    text-align:center;font-size:11px;color:#6a6657;margin-top:18px;letter-spacing:1px;
-  }
+  .btns{display:flex;gap:12px;justify-content:center;margin-top:14px;flex-wrap:wrap}
+  .btn{font-family:inherit;font-size:13px;letter-spacing:1px;font-weight:600;color:#e9e4d5;background:#262626;border:2px solid #111;border-radius:8px;padding:10px 18px;cursor:pointer;box-shadow:0 3px 0 #000, inset 0 1px 0 rgba(255,255,255,.12);transition:transform .05s, box-shadow .05s;display:inline-flex;align-items:center;gap:8px}
+  .btn:active{transform:translateY(2px);box-shadow:0 1px 0 #000}
+  .btn.measure{background:#262626;border-color:#111;color:#e9e4d5}
+  .led{width:10px;height:10px;border-radius:50%;background:#6a6a6a;box-shadow:inset 0 0 2px rgba(0,0,0,.6)}
+  .btn.on{transform:translateY(2px);background:#1b1b1b;box-shadow:0 1px 0 #000, inset 0 2px 5px rgba(0,0,0,.55)}
+  .btn.on .led{background:#4CA64C;box-shadow:0 0 6px #4CA64C}
+  .foot{text-align:center;font-size:11px;color:#6a6657;margin-top:18px;letter-spacing:1px}
 </style>
 </head>
 <body>
@@ -87,28 +45,21 @@
 
   <svg class="gauge" viewBox="0 0 680 480" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ужасометр зі шкалою Норм, ужас, ужас-ужас, ужас-ужас-ужас та рухомою стрілкою">
     <defs>
-      <pattern id="hm" width="7" height="7" patternUnits="userSpaceOnUse">
-        <circle cx="2" cy="2" r="0.8" fill="#ffffff" fill-opacity="0.06"/>
-        <circle cx="5" cy="5" r="0.8" fill="#000000" fill-opacity="0.06"/>
-      </pattern>
+      <pattern id="hm" width="7" height="7" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="0.8" fill="#ffffff" fill-opacity="0.06"/><circle cx="5" cy="5" r="0.8" fill="#000000" fill-opacity="0.06"/></pattern>
       <path id="lblNorm" d="M204.6 231.0 A152 152 0 0 1 232.5 192.5" fill="none"/>
       <path id="lblU1" d="M274.3 162.9 A152 152 0 0 1 313.6 150.3" fill="none"/>
       <path id="lblU2" d="M357.7 149.0 A152 152 0 0 1 420.5 171.1" fill="none"/>
       <path id="lblU3" d="M432.3 179.3 A152 152 0 0 1 489.7 273.6" fill="none"/>
     </defs>
-
     <rect x="0" y="0" width="680" height="345" fill="#8d9389"/>
     <rect x="0" y="329" width="680" height="16" fill="#000000" fill-opacity="0.08"/>
     <rect x="0" y="345" width="680" height="135" fill="#9a6c3c"/>
     <rect x="0" y="345" width="680" height="14" fill="#b07f4a"/>
     <line x1="0" y1="400" x2="680" y2="400" stroke="#7d5630" stroke-width="2"/>
     <line x1="0" y1="448" x2="680" y2="448" stroke="#7d5630" stroke-width="2"/>
-
     <ellipse cx="345" cy="411" rx="222" ry="18" fill="#000000" fill-opacity="0.20"/>
-
     <path d="M205 116 Q205 84 250 84 L430 84 Q478 84 478 116" fill="none" stroke="#6c7771" stroke-width="6" stroke-linecap="round"/>
     <path d="M205 110 Q205 90 250 90" fill="none" stroke="#aab3ad" stroke-width="2" stroke-linecap="round"/>
-
     <polygon points="140,120 540,120 586,88 186,88" fill="#5a6760"/>
     <polygon points="140,120 540,120 586,88 186,88" fill="url(#hm)"/>
     <polygon points="540,120 586,88 586,373 540,405" fill="#3e4842"/>
@@ -117,24 +68,19 @@
     <line x1="556" y1="192" x2="576" y2="169" stroke="#2c332e" stroke-width="2"/>
     <line x1="556" y1="214" x2="576" y2="191" stroke="#2c332e" stroke-width="2"/>
     <line x1="556" y1="236" x2="576" y2="213" stroke="#2c332e" stroke-width="2"/>
-
     <rect x="140" y="120" width="400" height="285" fill="#4e5a52"/>
     <rect x="140" y="120" width="400" height="285" fill="url(#hm)"/>
-
     <rect x="158" y="132" width="364" height="250" rx="7" fill="#d6cba8"/>
     <rect x="158" y="132" width="364" height="250" rx="7" fill="none" stroke="#9c9277" stroke-width="2"/>
-
     <path d="M214.43 266.36 A130 130 0 0 1 260.86 196.86 L273.03 212.73 A110 110 0 0 0 233.75 271.53 Z" fill="#4CA64C"/>
     <path d="M260.86 196.86 A130 130 0 0 1 340 170 L340 190 A110 110 0 0 0 273.03 212.73 Z" fill="#E0A81C"/>
     <path d="M340 170 A130 130 0 0 1 419.14 196.86 L406.97 212.73 A110 110 0 0 0 340 190 Z" fill="#E8783C"/>
     <path d="M419.14 196.86 A130 130 0 0 1 465.57 266.36 L446.25 271.53 A110 110 0 0 0 406.97 212.73 Z" fill="#D83A30"/>
-
     <line x1="214.43" y1="266.36" x2="198.98" y2="262.22" stroke="#2e2a24" stroke-width="2.5"/>
     <line x1="260.86" y1="196.86" x2="251.12" y2="184.16" stroke="#2e2a24" stroke-width="2.5"/>
     <line x1="340" y1="170" x2="340" y2="154" stroke="#2e2a24" stroke-width="2.5"/>
     <line x1="419.14" y1="196.86" x2="428.88" y2="184.16" stroke="#2e2a24" stroke-width="2.5"/>
     <line x1="465.57" y1="266.36" x2="481.02" y2="262.22" stroke="#2e2a24" stroke-width="2.5"/>
-
     <line x1="224.69" y1="239.98" x2="215.82" y2="235.36" stroke="#2e2a24" stroke-width="1.5"/>
     <line x1="240.42" y1="216.44" x2="232.76" y2="210.01" stroke="#2e2a24" stroke-width="1.5"/>
     <line x1="285.06" y1="182.18" x2="280.84" y2="173.12" stroke="#2e2a24" stroke-width="1.5"/>
@@ -143,37 +89,27 @@
     <line x1="394.94" y1="182.18" x2="399.16" y2="173.12" stroke="#2e2a24" stroke-width="1.5"/>
     <line x1="439.58" y1="216.44" x2="447.24" y2="210.01" stroke="#2e2a24" stroke-width="1.5"/>
     <line x1="455.31" y1="239.98" x2="464.18" y2="235.36" stroke="#2e2a24" stroke-width="1.5"/>
-
     <text style="font-family:inherit;font-size:12px;font-weight:600;fill:#3B6D11"><textPath href="#lblNorm">Норм</textPath></text>
     <text style="font-family:inherit;font-size:12px;font-weight:600;fill:#99560c"><textPath href="#lblU1">ужас</textPath></text>
     <text style="font-family:inherit;font-size:12px;font-weight:600;fill:#993c1d"><textPath href="#lblU2">ужас-ужас</textPath></text>
     <text style="font-family:inherit;font-size:12px;font-weight:600;fill:#A32D2D"><textPath href="#lblU3">ужас-ужас-ужас</textPath></text>
-
-    <g id="needle" transform="rotate(48 340 300)">
-      <polygon points="340,196 333,300 347,300" fill="#1a1a1a"/>
-      <circle cx="340" cy="314" r="6" fill="#1a1a1a"/>
-    </g>
+    <g id="needle" transform="rotate(48 340 300)"><polygon points="340,196 333,300 347,300" fill="#1a1a1a"/><circle cx="340" cy="314" r="6" fill="#1a1a1a"/></g>
     <circle cx="340" cy="300" r="10" fill="#cfcabb" stroke="#7d7860" stroke-width="1.5"/>
     <circle cx="340" cy="300" r="4.5" fill="#1a1a1a"/>
-
     <circle cx="206" cy="344" r="9" fill="#8a1f18"/>
     <circle cx="206" cy="344" r="7" fill="#d6342a" id="lamp"/>
     <circle cx="203" cy="341" r="2.2" fill="#ff9b8f"/>
     <text x="206" y="366" text-anchor="middle" style="font-family:inherit;font-size:11px;fill:#34302a;letter-spacing:1px">СЕТЬ</text>
-
     <text x="474" y="318" text-anchor="middle" style="font-family:inherit;font-size:11px;fill:#34302a;letter-spacing:1px">ЧУВСТВ.</text>
     <circle cx="474" cy="346" r="19" fill="#222" stroke="#000" stroke-width="1"/>
     <ellipse cx="468" cy="340" rx="7" ry="4.5" fill="#4a4a4a"/>
     <line x1="474" y1="346" x2="474" y2="331" stroke="#cfcabb" stroke-width="2.5" stroke-linecap="round"/>
-
     <rect x="288" y="338" width="104" height="24" rx="3" fill="#bdb8a4" stroke="#8c8773" stroke-width="1"/>
     <text x="340" y="354" text-anchor="middle" style="font-family:inherit;font-size:12px;font-weight:600;fill:#2e2a24;letter-spacing:0.5px">ужасометр-1</text>
-
     <circle cx="170" cy="142" r="4" fill="#9a9488"/><line x1="167.5" y1="142" x2="172.5" y2="142" stroke="#4a4842" stroke-width="1"/>
     <circle cx="510" cy="142" r="4" fill="#9a9488"/><line x1="507.5" y1="142" x2="512.5" y2="142" stroke="#4a4842" stroke-width="1"/>
     <circle cx="170" cy="372" r="4" fill="#9a9488"/><line x1="167.5" y1="372" x2="172.5" y2="372" stroke="#4a4842" stroke-width="1"/>
     <circle cx="510" cy="372" r="4" fill="#9a9488"/><line x1="507.5" y1="372" x2="512.5" y2="372" stroke="#4a4842" stroke-width="1"/>
-
     <text x="340" y="396" text-anchor="middle" style="font-family:inherit;font-size:11px;fill:#c3bdab;letter-spacing:1px">СДЕЛАНО В СССР · 1974 · г. ДНЕПРОПЕТРОВСК</text>
   </svg>
 
@@ -183,7 +119,11 @@
       <input type="range" min="0" max="100" step="1" value="82" id="lvl" aria-label="Рівень жаху">
       <span class="end r">ужас³</span>
     </div>
-    <div class="verdict">Прилад показує: <b id="verdict" style="color:#993c1d">ужас-ужас-ужас</b></div>
+    <div class="verdict">Прилад показує: <b id="verdict" style="color:#A32D2D">ужас-ужас-ужас</b></div>
+    <div class="btns">
+      <button class="btn measure" id="btnM">ВИМІР</button>
+      <button class="btn" id="btnS"><span class="led"></span>ЗГЛАЖУВАННЯ</button>
+    </div>
   </div>
 
   <div class="foot">ГОСТ 14-88 · поверено · не кантовать</div>
@@ -191,27 +131,28 @@
 
 <script>
 (function(){
-  var s=document.getElementById('lvl');
-  var n=document.getElementById('needle');
-  var v=document.getElementById('verdict');
-  var lamp=document.getElementById('lamp');
-  var zones=[
-    {max:25,t:'Норм',c:'#3B6D11',lamp:'#4CA64C'},
-    {max:50,t:'ужас',c:'#99560c',lamp:'#E0A81C'},
-    {max:75,t:'ужас-ужас',c:'#993c1d',lamp:'#E8783C'},
-    {max:101,t:'ужас-ужас-ужас',c:'#A32D2D',lamp:'#d6342a'}
-  ];
-  function upd(){
-    var val=+s.value;
-    var beta=-75+1.5*val;
-    n.setAttribute('transform','rotate('+beta.toFixed(1)+' 340 300)');
-    var z=zones.find(function(x){return val<x.max;});
-    v.textContent=z.t;
-    v.style.color=z.c;
-    lamp.setAttribute('fill',z.lamp);
+  var s=document.getElementById('lvl'),n=document.getElementById('needle'),v=document.getElementById('verdict'),lamp=document.getElementById('lamp'),bM=document.getElementById('btnM'),bS=document.getElementById('btnS');
+  var target=82,pos=82,vel=0,jit=0,smooth=false,meas=false,t1=null,t2=null,last=performance.now();
+  var Z=[{m:25,t:'Норм',c:'#3B6D11',l:'#4CA64C'},{m:50,t:'ужас',c:'#99560c',l:'#E0A81C'},{m:75,t:'ужас-ужас',c:'#993c1d',l:'#E8783C'},{m:101,t:'ужас-ужас-ужас',c:'#A32D2D',l:'#d6342a'}];
+  function zf(x){for(var i=0;i<Z.length;i++){if(x<Z[i].m)return Z[i];}return Z[3];}
+  function sv(){if(smooth)bS.classList.add('on');else bS.classList.remove('on');}
+  function measure(){meas=true;if(t1)clearTimeout(t1);if(t2)clearTimeout(t2);target=0;t1=setTimeout(function(){target=4+Math.random()*94;t2=setTimeout(function(){meas=false;s.value=Math.round(target);},2600);},560);}
+  bM.addEventListener('click',measure);
+  bS.addEventListener('click',function(){smooth=!smooth;sv();});
+  s.addEventListener('input',function(){meas=false;if(t1)clearTimeout(t1);if(t2)clearTimeout(t2);target=+s.value;});
+  function frame(now){
+    var dt=(now-last)/1000;last=now;if(dt>0.05)dt=0.05;if(dt<0)dt=0;
+    if(meas){var k=34,c=2*Math.sqrt(34)*0.42,a=k*(target-pos)-c*vel;vel+=a*dt;pos+=vel*dt;}
+    else{pos+=(target-pos)*Math.min(1,dt*14);vel=0;}
+    if(pos<0){pos=0;if(vel<0)vel=0;}if(pos>100){pos=100;if(vel>0)vel=0;}
+    if(!smooth){jit+=(Math.random()-0.5)*0.9;jit*=0.85;if(jit>1.7)jit=1.7;if(jit<-1.7)jit=-1.7;}
+    else{jit*=0.8;if(Math.abs(jit)<0.02)jit=0;}
+    var beta=-75+1.5*pos+jit;
+    n.setAttribute('transform','rotate('+beta.toFixed(2)+' 340 300)');
+    var z=zf(pos);v.textContent=z.t;v.style.color=z.c;lamp.setAttribute('fill',z.l);
+    requestAnimationFrame(frame);
   }
-  s.addEventListener('input',upd);
-  upd();
+  sv();requestAnimationFrame(frame);
 })();
 </script>
 </body>
