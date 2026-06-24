@@ -35,6 +35,7 @@
   .led{width:10px;height:10px;border-radius:50%;background:#6a6a6a;box-shadow:inset 0 0 2px rgba(0,0,0,.6)}
   .btn.on{transform:translateY(2px);background:#1b1b1b;box-shadow:0 1px 0 #000, inset 0 2px 5px rgba(0,0,0,.55)}
   .btn.on .led{background:#4CA64C;box-shadow:0 0 6px #4CA64C}
+  .btn.sw.on .led{background:#d6342a;box-shadow:0 0 7px #d6342a}
   .foot{text-align:center;font-size:11px;color:#6a6657;margin-top:18px;letter-spacing:1px}
 </style>
 </head>
@@ -122,6 +123,7 @@
     <div class="verdict">Прилад показує: <b id="verdict" style="color:#A32D2D">ужас-ужас-ужас</b></div>
     <div class="btns">
       <button class="btn measure" id="btnM">ВИМІР</button>
+      <button class="btn sw" id="btnW"><span class="led"></span>ПАНІКА</button>
       <button class="btn" id="btnS"><span class="led"></span>ЗГЛАЖУВАННЯ</button>
     </div>
   </div>
@@ -131,21 +133,23 @@
 
 <script>
 (function(){
-  var s=document.getElementById('lvl'),n=document.getElementById('needle'),v=document.getElementById('verdict'),lamp=document.getElementById('lamp'),bM=document.getElementById('btnM'),bS=document.getElementById('btnS');
-  var target=82,pos=82,vel=0,jit=0,smooth=false,meas=false,t1=null,t2=null,last=performance.now();
+  var s=document.getElementById('lvl'),n=document.getElementById('needle'),v=document.getElementById('verdict'),lamp=document.getElementById('lamp'),bM=document.getElementById('btnM'),bW=document.getElementById('btnW'),bS=document.getElementById('btnS');
+  var target=82,pos=82,vel=0,jit=0,smooth=false,meas=false,sweep=false,sph=0,t1=null,t2=null,last=performance.now();
   var Z=[{m:25,t:'Норм',c:'#3B6D11',l:'#4CA64C'},{m:50,t:'ужас',c:'#99560c',l:'#E0A81C'},{m:75,t:'ужас-ужас',c:'#993c1d',l:'#E8783C'},{m:101,t:'ужас-ужас-ужас',c:'#A32D2D',l:'#d6342a'}];
   function zf(x){for(var i=0;i<Z.length;i++){if(x<Z[i].m)return Z[i];}return Z[3];}
-  function sv(){if(smooth)bS.classList.add('on');else bS.classList.remove('on');}
-  function measure(){meas=true;if(t1)clearTimeout(t1);if(t2)clearTimeout(t2);target=0;t1=setTimeout(function(){target=4+Math.random()*94;t2=setTimeout(function(){meas=false;s.value=Math.round(target);},2600);},560);}
+  function sv(){bS.classList.toggle('on',smooth);bW.classList.toggle('on',sweep);}
+  function measure(){sweep=false;meas=true;if(t1)clearTimeout(t1);if(t2)clearTimeout(t2);target=0;t1=setTimeout(function(){target=4+Math.random()*94;t2=setTimeout(function(){meas=false;s.value=Math.round(target);},2600);},560);sv();}
   bM.addEventListener('click',measure);
+  bW.addEventListener('click',function(){sweep=!sweep;if(sweep){meas=false;if(t1)clearTimeout(t1);if(t2)clearTimeout(t2);sph=Math.asin(Math.max(-1,Math.min(1,(pos-50)/50)));}else{target=pos;}sv();});
   bS.addEventListener('click',function(){smooth=!smooth;sv();});
-  s.addEventListener('input',function(){meas=false;if(t1)clearTimeout(t1);if(t2)clearTimeout(t2);target=+s.value;});
+  s.addEventListener('input',function(){meas=false;sweep=false;if(t1)clearTimeout(t1);if(t2)clearTimeout(t2);target=+s.value;sv();});
   function frame(now){
     var dt=(now-last)/1000;last=now;if(dt>0.05)dt=0.05;if(dt<0)dt=0;
-    if(meas){var k=34,c=2*Math.sqrt(34)*0.42,a=k*(target-pos)-c*vel;vel+=a*dt;pos+=vel*dt;}
+    if(sweep){sph+=dt*5.6;pos=50+50*Math.sin(sph);vel=0;}
+    else if(meas){var k=34,c=2*Math.sqrt(34)*0.42,a=k*(target-pos)-c*vel;vel+=a*dt;pos+=vel*dt;}
     else{pos+=(target-pos)*Math.min(1,dt*14);vel=0;}
     if(pos<0){pos=0;if(vel<0)vel=0;}if(pos>100){pos=100;if(vel>0)vel=0;}
-    if(meas)s.value=Math.round(pos);
+    if(meas||sweep)s.value=Math.round(pos);
     if(!smooth){jit+=(Math.random()-0.5)*0.9;jit*=0.85;if(jit>1.7)jit=1.7;if(jit<-1.7)jit=-1.7;}
     else{jit*=0.8;if(Math.abs(jit)<0.02)jit=0;}
     var beta=-75+1.5*pos+jit;
